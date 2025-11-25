@@ -14,7 +14,7 @@ import { FriendsPage } from "./components/FriendsPage";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./components/ui/tabs";
 import { Button } from "./components/ui/button";
 import { PenSquare, Shield } from "lucide-react"; // Thêm icon Shield cho admin
-
+const API_URL = import.meta.env.VITE_API_URL || localStorage.getItem("API_URL") || "https://bloghub-backend-jvh3.onrender.com";
 interface UserType {
   _id: string;
   name: string;
@@ -93,8 +93,8 @@ export default function App() {
       if (token) headers.Authorization = `Bearer ${token}`;
 
       const [artRes, usersRes] = await Promise.all([
-        fetch("http://localhost:5000/api/articles", { headers }),
-        fetch("http://localhost:5000/api/users", { headers }),
+        fetch("${API_URL}/api/articles", { headers }),
+        fetch("${API_URL}/api/users", { headers }),
       ]);
 
       const articlesData = artRes.ok ? await artRes.json() : [];
